@@ -1,4 +1,11 @@
 name: NaturalEnvironment
 main: com.masstrix.natrual.NaturalEnvironment
-version: 0.1
+version: 1.1
 author: Masstrix
+desciption: "NaturalEnvironment is a plugin designed for adding missing features in minecraft."
+
+commands:
+  NaturalEnvironment:
+    aliases: [ne]
+    desciption: "NaturalEnvironment command."
+    usage: "\u00A7cTry using /NaturalEnvironment help for assistance."
