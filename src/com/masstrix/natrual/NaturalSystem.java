@@ -1,6 +1,7 @@
 package com.masstrix.natrual;
 
 import com.masstrix.natrual.listeners.DeathListener;
+import com.masstrix.natrual.user.User;
 import net.minecraft.server.v1_12_R1.ChatMessageType;
 import net.minecraft.server.v1_12_R1.IChatBaseComponent;
 import net.minecraft.server.v1_12_R1.PacketPlayOutChat;

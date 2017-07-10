@@ -99,9 +99,9 @@ public enum TemperatureValue {
     BLOCK_SEALANTERN(TemperatureType.BLOCK, 10, "sea_lantern"),
     BLOCK_GLOWSTONE(TemperatureType.BLOCK, 10, "glowstone");
 
-    protected TemperatureType type = null;
-    protected double attr = 0, attrNight;
-    protected String name = null;
+    private TemperatureType type = null;
+    private double attr = 0, attrNight;
+    private String name = null;
 
     TemperatureValue(TemperatureType type, double attr) {
         this.type = type;
@@ -118,5 +118,21 @@ public enum TemperatureValue {
         this.type = type;
         this.attr = attr;
         this.name = name;
+    }
+
+    public TemperatureType getType() {
+        return type;
+    }
+
+    public double getAttr() {
+        return attr;
+    }
+
+    public double getAttrNight() {
+        return attrNight;
+    }
+
+    public String getName() {
+        return name;
     }
 }

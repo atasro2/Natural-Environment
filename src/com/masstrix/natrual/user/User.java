@@ -1,5 +1,8 @@
-package com.masstrix.natrual;
+package com.masstrix.natrual.user;
 
+import com.masstrix.natrual.NaturalEnvironment;
+import com.masstrix.natrual.TemperatureType;
+import com.masstrix.natrual.TemperatureValue;
 import com.masstrix.natrual.events.PlayerDehydrateEvent;
 import com.masstrix.natrual.items.CampFire;
 import com.masstrix.natrual.recipes.EnchantmentsManager;
@@ -74,15 +77,15 @@ public class User {
 
             for (TemperatureValue tv : TemperatureValue.values()) {
                 if (!biomes.contains(tv)
-                        && tv.type == TemperatureType.BIOME
+                        && tv.getType() == TemperatureType.BIOME
                         && bi.contains(tv.toString())) {
                     t++;
-                    b += tv.attr;
+                    b += tv.getAttr();
                     biomes.add(tv);
                     continue;
                 }
-                if (tv.type != TemperatureType.BLOCK) continue;
-                if (!y.contains(tv.name)) continue;
+                if (tv.getType() != TemperatureType.BLOCK) continue;
+                if (!y.contains(tv.getName())) continue;
                 if (factors.containsKey(tv)) {
                     if (factors.get(tv) > m.getLocation().distance(player.getLocation()))
                         factors.put(tv, m.getLocation().distance(player.getLocation()));
@@ -93,13 +96,13 @@ public class User {
         }
 
         for (TemperatureValue v : factors.keySet()) {
-            double d = v.attr / (factors.get(v) / 2);
+            double d = v.getAttr() / (factors.get(v) / 2);
             temp_to += d;
         }
 
         for (Entity e : player.getNearbyEntities(5, 5, 5)) {
             if (e instanceof ArmorStand && CampFire.isLit((ArmorStand) e)) {
-                temp_to += TemperatureValue.CAMPFIRE.attr / (e.getLocation().distance(player.getLocation()) / 2);
+                temp_to += TemperatureValue.CAMPFIRE.getAttr() / (e.getLocation().distance(player.getLocation()) / 2);
                 break;
             }
         }
@@ -110,7 +113,7 @@ public class User {
         ItemStack hand_r = player.getInventory().getItemInMainHand();
 
         for (TemperatureValue tv : TemperatureValue.values()) {
-            if (tv.type == TemperatureType.ARMOR) {
+            if (tv.getType() == TemperatureType.ARMOR) {
                 for (ItemStack s : armor) {
                     if (s != null) {
                         if (s.containsEnchantment(EnchantmentsManager.HYDRATION)) {
@@ -135,13 +138,13 @@ public class User {
                     }
 
                     if (s != null && s.getType().toString().equals(tv.toString())) {
-                        temp_to += tv.attr;
+                        temp_to += tv.getAttr();
                     }
                 }
             }
-            else if (tv.type == TemperatureType.ITEM) {
-                if (hand_l != null && hand_l.getType().toString().toLowerCase().contains(tv.name)) temp_to += tv.attr;
-                if (hand_r != null && hand_r.getType().toString().toLowerCase().contains(tv.name)) temp_to += tv.attr;
+            else if (tv.getType() == TemperatureType.ITEM) {
+                if (hand_l != null && hand_l.getType().toString().toLowerCase().contains(tv.getName())) temp_to += tv.getAttr();
+                if (hand_r != null && hand_r.getType().toString().toLowerCase().contains(tv.getName())) temp_to += tv.getAttr();
             }
         }
 
