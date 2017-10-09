@@ -1,11 +1,19 @@
 name: NaturalEnvironment
 main: com.masstrix.natrual.NaturalEnvironment
-version: 1.1
+version: 2.0
 author: Masstrix
 desciption: "NaturalEnvironment is a plugin designed for adding missing features in minecraft."
 
 commands:
   NaturalEnvironment:
+    permission: naturalenvironment.admin
+    permission-message: "\u00A7cYou don't have permission for this command!"
     aliases: [ne]
     desciption: "NaturalEnvironment command."
-    usage: "\u00A7cTry using /NaturalEnvironment help for assistance."
+    usage: "\u00A7cTry using /ne help for assistance."
+  Hydrate:
+    permission: naturalenvironment.hydrate
+    permission-message: "\u00A7cYou don't have permission for this command!"
+    aliases: [ne]
+    desciption: "Hydrate a target player."
+    usage: "\u00A7cUsage: /hydrate <player>"

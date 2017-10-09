@@ -1,6 +1,7 @@
 package com.masstrix.natrual.listeners;
 
 import com.masstrix.natrual.NaturalEnvironment;
+import com.masstrix.natrual.user.UserManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerRespawnEvent;
@@ -13,7 +14,7 @@ public class RespawnListener implements Listener {
         new BukkitRunnable() {
             @Override
             public void run() {
-                NaturalEnvironment.getInstance().get(event.getPlayer().getUniqueId()).reset();
+                UserManager.get(event.getPlayer().getUniqueId()).reset();
             }
         }.runTaskLater(NaturalEnvironment.getInstance(), 5);
     }

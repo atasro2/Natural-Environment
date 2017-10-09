@@ -1,5 +1,9 @@
 package com.masstrix.natrual;
 
+import org.bukkit.Material;
+import org.bukkit.block.Biome;
+import org.bukkit.block.Block;
+
 public enum TemperatureValue {
     BEACHES(TemperatureType.BIOME, 20),
     BIRCH_FOREST(TemperatureType.BIOME, 20),
@@ -134,5 +138,20 @@ public enum TemperatureValue {
 
     public String getName() {
         return name;
+    }
+
+    public static double getTemp(Block block) {
+        Material material = block == null ? null : block.getType();
+        Biome biome  = block == null ? null : block.getBiome();
+        int temp = 0;
+        for (TemperatureValue v : TemperatureValue.values()) {
+            if (biome != null && v.getType() == TemperatureType.BIOME && v.name().toLowerCase().contains(biome.name().toLowerCase())) {
+                temp += v.getAttr();
+            }
+            else if (material != null && v.getType() == TemperatureType.BLOCK && v.getName().toLowerCase().contains(material.name().toLowerCase())) {
+                temp += v.getAttr();
+            }
+        }
+        return temp;
     }
 }

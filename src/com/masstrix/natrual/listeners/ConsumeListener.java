@@ -1,7 +1,7 @@
 package com.masstrix.natrual.listeners;
 
+import com.masstrix.natrual.user.UserManager;
 import com.masstrix.natrual.util.CustomStack;
-import com.masstrix.natrual.NaturalEnvironment;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -24,7 +24,7 @@ public class ConsumeListener implements Listener {
         short dur = stack.getDurability();
 
         if (type == Material.POTION && dur == 0) {
-            NaturalEnvironment.getInstance().get(player.getUniqueId()).saturate(3);
+            UserManager.get(player.getUniqueId()).hydrate(3);
 
             Object current = CustomStack.getNBTTag(stack, "bottle.uses");
 
@@ -46,7 +46,7 @@ public class ConsumeListener implements Listener {
                 } else {
                     stack.setType(Material.POTION);
                     stack.setDurability((short) 0);
-                    NaturalEnvironment.getInstance().get(player.getUniqueId()).saturate(3);
+                    UserManager.get(player.getUniqueId()).hydrate(3);
                 }
 
                 stack = CustomStack.setNBTTag(stack, "setInt", Integer.TYPE, "bottle.uses", l);
@@ -63,10 +63,10 @@ public class ConsumeListener implements Listener {
             }
         }
         else if (type == Material.POTION && dur > 0) {
-            NaturalEnvironment.getInstance().get(player.getUniqueId()).saturate(4);
+            UserManager.get(player.getUniqueId()).hydrate(4);
         }
         else if (type == Material.MILK_BUCKET) {
-            NaturalEnvironment.getInstance().get(player.getUniqueId()).saturate(5);
+            UserManager.get(player.getUniqueId()).hydrate(5);
         }
     }
 
@@ -81,12 +81,12 @@ public class ConsumeListener implements Listener {
 
             if (stack.getType() == Material.WATER_BUCKET) {
                 stack.setType(Material.BUCKET);
-                NaturalEnvironment.getInstance().get(player.getUniqueId()).saturate(7);
+                UserManager.get(player.getUniqueId()).hydrate(7);
                 player.setFireTicks(0);
             }
             else if (stack.getType() == Material.LAVA_BUCKET) {
                 stack.setType(Material.BUCKET);
-                NaturalEnvironment.getInstance().get(player.getUniqueId()).saturate(4);
+                UserManager.get(player.getUniqueId()).hydrate(4);
                 player.setFireTicks(burntime);
             }
         }

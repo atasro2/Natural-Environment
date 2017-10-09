@@ -1,8 +1,6 @@
 package com.masstrix.natrual.listeners;
 
-import com.masstrix.natrual.items.CampFire;
 import com.masstrix.natrual.util.CustomStack;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.event.EventHandler;
@@ -21,11 +19,6 @@ public class DamageListener implements Listener {
             Object o = CustomStack.getNBTTag(stack, "advancedclock");
             if (o == null) return;
             frame.setItem(new CustomStack(stack).setDiplayname("&eAdvanced Clock"));
-        }
-
-        if (e instanceof ArmorStand) {
-            if (event.getCause() == EntityDamageEvent.DamageCause.ENTITY_ATTACK)
-                CampFire.remove((ArmorStand) e);
         }
     }
 }

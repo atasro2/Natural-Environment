@@ -1,0 +1,17 @@
+temperature:
+  enabled: true
+
+h2o:
+  enabled: true
+  full: "&b●"
+  half: "&b◯"
+  empty: "&7◌"
+
+# Saves players h2o and temperature in a data file for next login. Can be disabled to save file space.
+save-player-data: true
+
+world:
+  # If true per world configs will be ignored and use the defaultWorld.yml
+  override-default: false
+  # If true any missing world config on reload will be generated.
+  auto-generate: true

@@ -33,7 +33,7 @@ public class InventoryListener implements Listener {
     public void on(InventoryClickEvent event) {
         if (event.getClickedInventory() == null) return;
         if (event.getClickedInventory().getType() == InventoryType.FURNACE) {
-            new BukkitRunnable() {
+            /*new BukkitRunnable() { TODO create smoother method for furnace checking.
                 @Override
                 public void run() {
                     if (event.getClickedInventory().getItem(0) != null && event.getClickedInventory().getItem(0).getType() == Material.LEAVES) {
@@ -46,7 +46,7 @@ public class InventoryListener implements Listener {
                         }
                     }
                 }
-            }.runTaskLater(NaturalEnvironment.getInstance(), 1);
+            }.runTaskLater(NaturalEnvironment.getInstance(), 1);*/
         }
     }
 
@@ -67,6 +67,9 @@ public class InventoryListener implements Listener {
     public void on(PrepareItemCraftEvent e) {
         if (e.getInventory() != null) {
             CraftingInventory inv = e.getInventory();
+
+            boolean f = false;
+            if (!f) return;
 
             if (e.getRecipe().equals(new CraftRecipes().backpack())) {
                 ItemStack item1 = inv.getMatrix()[0];

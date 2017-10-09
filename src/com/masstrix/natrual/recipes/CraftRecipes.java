@@ -1,6 +1,5 @@
 package com.masstrix.natrual.recipes;
 
-import com.masstrix.natrual.items.Backpack;
 import com.masstrix.natrual.items.RecipeItems;
 import com.masstrix.natrual.util.CustomStack;
 import org.bukkit.Bukkit;
@@ -138,8 +137,6 @@ public class CraftRecipes {
         ItemStack item = CustomStack.hideStats(stack);
         item = CustomStack.setNBTTag(item, "setInt", Integer.TYPE, "backpack.level", 1);
         item = CustomStack.setNBTTag(item, "setString", String.class, "backpack.owner", "");
-
-        new Backpack(item);
 
         ShapedRecipe recipe = new ShapedRecipe(item != null ? item : stack);
         recipe.shape(

@@ -1,87 +1,85 @@
 package com.masstrix.natrual;
 
+import com.masstrix.natrual.commands.HydrateCommand;
+import com.masstrix.natrual.commands.NaturalEnvironmentCommand;
+import com.masstrix.natrual.config.ConfigHandler;
 import com.masstrix.natrual.listeners.*;
 import com.masstrix.natrual.recipes.CraftRecipes;
 import com.masstrix.natrual.recipes.EnchantmentsManager;
 import com.masstrix.natrual.recipes.SmeltRecipes;
+import com.masstrix.natrual.world.WorldDataHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 /*
-* TODO: Item weight
-* TODO: Catch on fire if player temp > 150
-* TODO: Poison enchantment
-* TODO: Chunk loader
-* TODO: Magic mushroom (turns normal cow into magic)
-* TODO: Wind
+* TODO Magic mushroom (turns normal cow into magic)
+* TODO Tree capitator system (Quick Fall)
+*
+* TODO
 * */
 
 public final class NaturalEnvironment extends JavaPlugin implements Listener {
 
     private static NaturalEnvironment instance;
-    private static Map<UUID, User> users = new HashMap<>();
+    private static ConfigHandler configHandler;
+    private WorldDataHandler worldDataHandler;
+
+    private boolean debug = true;
+
+    public boolean loaded = false;
+
+    public static final String PREFIX = "\u00A77[\u00A7aNatural\u00A77] ";
+
+    public boolean toggleDebugMode() {
+        return debug = !debug;
+    }
+
+    public boolean isDebugEnabled() {
+        return debug;
+    }
 
     public static NaturalEnvironment getInstance() {
         return instance;
     }
 
-    public static void main(String[] a) {
-        TemperatureMap t = new TemperatureMap();
-        for (int i = 0; i <= 60; i++) System.out.print(i + ": " + t.getHeight().get(i) + "\n");
+    public WorldDataHandler getChunkData() {
+        return worldDataHandler;
     }
 
-    public void add(UUID uuid) {
-        if (!users.containsKey(uuid)) {
-            users.put(uuid, get(uuid));
-        }
+    public static ConfigHandler getConfigs() {
+        return configHandler;
     }
 
-    public User get(UUID uuid) {
-        if (!users.containsKey(uuid)) {
-            int t = 20, td = 400;
-            double d = 0, temp = 0;
-            if (getConfig().contains(uuid.toString())) {
-                t = getConfig().getConfigurationSection(uuid.toString()).getInt("thirst");
-                td = getConfig().getConfigurationSection(uuid.toString()).getInt("thirstD");
-                d = getConfig().getConfigurationSection(uuid.toString()).getDouble("walked");
-                temp = getConfig().getConfigurationSection(uuid.toString()).getDouble("temp");
-            }
-            users.put(uuid, new User(uuid, t, d, td, temp));
-        }
-        return users.get(uuid);
+    public final boolean isLoaded() {
+        return loaded;
     }
 
-    public Map<UUID, User> getUsers() {
-        return users;
-    }
-
-    public void remove(UUID uuid) {
-        if (users.containsKey(uuid)) {
-            users.get(uuid).save();
-            users.remove(uuid);
-        }
-    }
-
-    public void registerListener(Listener... listener) {
-        PluginManager manager = Bukkit.getPluginManager();
-        for (Listener l : listener)
-            manager.registerEvents(l, this);
+    void setLoaded(boolean b) {
+        this.loaded = b;
     }
 
     public void onEnable() {
         instance = this;
+        saveDefaultConfig();
+        new VersionChecker(43290);
+        configHandler = new ConfigHandler();
+        configHandler.reload();
 
-        registerListener(this, new WalkListener(), new RespawnListener(), new QuitListener(), new JoinListener(),
-                new DeathListener(), new InventoryListener(), new ConsumeListener(), new BackpackListener(),
-                new EnchantListener(), new InteractListener(this), new DamageListener());
+        worldDataHandler = new WorldDataHandler();
+
+        registerListener(this, new WalkListener(), new RespawnListener(), new QuitListener(),
+                new JoinListener(), new DeathListener(), new InventoryListener(),
+                new ConsumeListener(), new EnchantListener(), new InteractListener(this),
+                new DamageListener(), new ChunkListener());
+
+        getCommand("NaturalEnvironment").setExecutor(new NaturalEnvironmentCommand());
+        getCommand("Hydrate").setExecutor(new HydrateCommand());
 
         new EnchantmentsManager();
         new NaturalSystem(this);
@@ -98,5 +96,16 @@ public final class NaturalEnvironment extends JavaPlugin implements Listener {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @EventHandler
+    public void onDisable() {
+
+    }
+
+    private void registerListener(Listener... listener) {
+        PluginManager manager = Bukkit.getPluginManager();
+        for (Listener l : listener)
+            manager.registerEvents(l, this);
     }
 }

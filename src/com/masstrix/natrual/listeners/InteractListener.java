@@ -1,7 +1,6 @@
 package com.masstrix.natrual.listeners;
 
 import com.masstrix.natrual.items.AdvancedClock;
-import com.masstrix.natrual.items.CampFire;
 import com.masstrix.natrual.util.CustomStack;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -35,7 +34,6 @@ public class InteractListener implements Listener {
         if (i == null) return;
         Object current = CustomStack.getNBTTag(i, "campfire");
         if (current == null) return;
-        new CampFire(event.getClickedBlock().getLocation().add(0.5, 0.5, 0.5)).spawn();
         event.setCancelled(true);
 
         if (player.getInventory().getItemInMainHand().isSimilar(i)) {
@@ -54,19 +52,6 @@ public class InteractListener implements Listener {
         if (event.getRightClicked() instanceof ArmorStand) {
             if (new AdvancedClock().isValid((ArmorStand) event.getRightClicked())) {
                 event.setCancelled(true);
-            }
-            else if (CampFire.isValid((ArmorStand) event.getRightClicked())) {
-                event.setCancelled(true);
-                ItemStack i1 = event.getPlayer().getInventory().getItemInMainHand();
-                ItemStack i2 = event.getPlayer().getInventory().getItemInMainHand();
-                if (i1 != null && i1.getType() == Material.FLINT_AND_STEEL) {
-                    i1.setDurability((short) (i1.getDurability() - 1));
-                    CampFire.ignite((ArmorStand) event.getRightClicked());
-                }
-                else if (i2 != null && i2.getType() == Material.FLINT_AND_STEEL) {
-                    i2.setDurability((short) (i2.getDurability() - 1));
-                    CampFire.ignite((ArmorStand) event.getRightClicked());
-                }
             }
         }
     }

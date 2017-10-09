@@ -1,6 +1,6 @@
 package com.masstrix.natrual.listeners;
 
-import com.masstrix.natrual.NaturalEnvironment;
+import com.masstrix.natrual.user.UserManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,6 +11,6 @@ public class QuitListener implements Listener {
     @EventHandler
     public void on(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        NaturalEnvironment.getInstance().remove(player.getUniqueId());
+        UserManager.remove(player.getUniqueId());
     }
 }

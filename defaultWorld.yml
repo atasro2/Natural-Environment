@@ -1,0 +1,94 @@
+#
+# Materials Format.
+#  the materials second uses a contains method so if you want to put all of a single
+#  category under one tree (eg. making all blocks with the word snow) you can just
+#  use the same relational name (in the examples case "snow"). Tags will be overridden
+#  by there full material names.
+#
+# version this was last run on. (used to reformat the file if an update is
+# done that requires a reformat of files.). This should not be changed manually.
+version: 0
+
+# Biome temperatures.
+biomes:
+  BEACHES: 20
+  BIRCH_FOREST: 20
+  BIRCH_FOREST_HILLS: 23
+  COLD_BEACH: -2
+  DEEP_OCEAN: -3
+  DESERT: 33
+  DESERT_HILLS: 34
+  EXTREME_HILLS: -2
+  EXTREME_HILLS_WITH_TREES: -2
+  FOREST: 18
+  FOREST_HILLS: 19
+  FROZEN_OCEAN: -3
+  FROZEN_RIVER: -4
+  HELL: 30
+  ICE_FLATS: -10
+  ICE_MOUNTAINS: -14
+  JUNGLE: 25
+  JUNGLE_EDGE: 23
+  JUNGLE_HILLS: -26
+  MESA: 26
+  MESA_CLEAR_ROCK: 28
+  MESA_ROCK: 27
+  MUSHROOM_ISLAND: 18
+  MUSHROOM_ISLAND_SHORE: 15
+  OCEAN: 5
+  PLAINS: 18
+  REDWOOD_TAIGA: 7
+  REDWOOD_TAIGA_HILLS: 8
+  RIVER: 14
+  ROOFED_FOREST: -2
+  SAVANNA: -2
+  SAVANNA_ROCK: -2
+  SKY: 13
+  SMALLER_EXTREME_HILLS: 3
+  STONE_BEACH: 15
+  SWAMPLAND: 22
+  TAIGA: 5
+  TAIGA_COLD: -3
+  TAIGA_COLD_HILLS: -4
+  TAIGA_HILLS: 6
+  VOID: -30
+
+# Set material data.
+materials:
+  lava:
+    hand: 50
+    block: 300
+  torch:
+    hand: 12
+    block: 50
+  snow:
+    hand: -3
+    block: -3
+  ice:
+    hand: -4
+    block: -3
+  nether:
+    hand: 15
+    block: 20
+  magma:
+    hand: 40
+    block: 50
+  jack_o_lantern:
+    hand: 10
+    block: 20
+  sea_lantern:
+    hand: 5
+    block: 5
+  glowstone:
+    hand: 5
+    block: 10
+  fire:
+    block: 50
+
+# Set entity data.
+entities:
+  blaze: 200
+
+# Set special item data.
+special:
+  campfire: 28
